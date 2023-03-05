@@ -1,4 +1,5 @@
 import clipboard from '../../assets/Clipboard.svg'
+import { Task } from '../Task'
 import styles from './tasks.module.css'
 
 export function Tasks() {
@@ -15,6 +16,12 @@ export function Tasks() {
           <span>0</span>
         </div>
       </header>
+
+      <div className={styles.list}>
+        <Task />
+        <Task />
+        <Task />
+      </div>
 
       <section className={styles.empty}>
         <img src={clipboard} />
