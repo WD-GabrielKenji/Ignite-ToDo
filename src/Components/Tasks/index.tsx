@@ -1,26 +1,37 @@
 import clipboard from '../../assets/Clipboard.svg'
+import { ITask } from '../App'
 import { Task } from '../Task'
 import styles from './tasks.module.css'
 
-export function Tasks() {
+interface TasksProps {
+  tasks: ITask[];
+}
+
+export function Tasks({ tasks }: TasksProps) {
+  const tasksQuantify = tasks.length;
+  const completedTasks = tasks.filter((task) => task.isCompleted).length;
+  
   return (
     <section className={styles.tasks}>
       <header className={styles.header}>
         <div>
           <p>Tarefas criadas</p>
-          <span>0</span>
+          <span>{tasksQuantify}</span>
         </div>
 
         <div>
           <p className={styles.textPurple}>Concluídas</p>
-          <span>0</span>
+          <span>{completedTasks} de {tasksQuantify}</span>
         </div>
       </header>
 
       <div className={styles.list}>
-        <Task />
-        <Task />
-        <Task />
+        {tasks.map((task) => (
+          <Task 
+            key={task.id}
+            task={task}
+          />
+        ))}
       </div>
 
       <section className={styles.empty}>

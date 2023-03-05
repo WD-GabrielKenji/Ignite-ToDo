@@ -36,6 +36,11 @@
   line-height: 1.225rem;
 }
 
+p.textCompleted {
+  color: var(--gray-300);
+  text-decoration: line-through;
+}
+
 .deleteButton {
   border: none;
   background: none;
