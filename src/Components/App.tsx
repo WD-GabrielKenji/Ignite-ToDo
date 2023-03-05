@@ -12,9 +12,20 @@ export interface ITask {
 export function App() {
   const [tasks, setTasks] = useState<ITask[]>([]);
   
+  function handleCreateTask(taskTitle: string) {
+    setTasks([
+      ...tasks,
+      {
+        id: crypto.randomUUID(),
+        title: taskTitle,
+        isCompleted: false
+      }
+    ])
+  }
+
   return (
     <>
-      <Header />
+      <Header onAddTask={handleCreateTask} />
       <Tasks 
         tasks={tasks}
       />
