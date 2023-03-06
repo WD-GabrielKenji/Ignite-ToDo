@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Header } from "./Header";
 import { Tasks } from "./Tasks";
@@ -9,11 +9,30 @@ export interface ITask {
   isCompleted: boolean;
 }
 
+const LOCAL_STORAGE_KEY = '@ignite-todo:tasks-state-1.0.0';
+
 export function App() {
   const [tasks, setTasks] = useState<ITask[]>([]);
   
+  function loadSavedTasks() {
+    const storedStateAsJSON = localStorage.getItem(LOCAL_STORAGE_KEY);
+    
+    if (storedStateAsJSON) {
+      setTasks(JSON.parse(storedStateAsJSON));
+    }
+  }
+
+  useEffect(() => {
+    loadSavedTasks();
+  }, []);
+
+  function setTasksAndSave(newTasks: ITask[]) {
+    setTasks(newTasks);
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newTasks));
+  }
+
   function handleCreateTask(taskTitle: string) {
-    setTasks([
+    setTasksAndSave([
       ...tasks,
       {
         id: crypto.randomUUID(),
@@ -25,7 +44,7 @@ export function App() {
 
   function handleDeleteTaskById(taskId: string) {
     const newTasks = tasks.filter((task) => task.id !== taskId);
-    setTasks(newTasks);
+    setTasksAndSave(newTasks);
   }
 
   function handleCompleteTaskById(taskId: string) {
@@ -38,7 +57,7 @@ export function App() {
       }
       return task;
     });
-    setTasks(newTasks);
+    setTasksAndSave(newTasks);
   }
 
   return (
