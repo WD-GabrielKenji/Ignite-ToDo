@@ -28,12 +28,26 @@ export function App() {
     setTasks(newTasks);
   }
 
+  function handleCompleteTaskById(taskId: string) {
+    const newTasks = tasks.map((task) => {
+      if (task.id === taskId) {
+        return {
+          ...task,
+          isCompleted: !task.isCompleted,
+        };
+      }
+      return task;
+    });
+    setTasks(newTasks);
+  }
+
   return (
     <>
       <Header onAddTask={handleCreateTask} />
       <Tasks 
         tasks={tasks}
         onDeleteTask={handleDeleteTaskById}
+        onCompleteTask={handleCompleteTaskById}
       />
     </>
   )

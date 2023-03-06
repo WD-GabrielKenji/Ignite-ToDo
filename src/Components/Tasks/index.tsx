@@ -6,9 +6,14 @@ import styles from './tasks.module.css'
 interface TasksProps {
   tasks: ITask[];
   onDeleteTask: (taskId: string) => void;
+  onCompleteTask: (taskId: string) => void;
 }
 
-export function Tasks({ tasks, onDeleteTask }: TasksProps) {
+export function Tasks({ 
+  tasks, 
+  onDeleteTask, 
+  onCompleteTask 
+}: TasksProps) {
   const tasksQuantify = tasks.length;
   const completedTasks = tasks.filter((task) => task.isCompleted).length;
   
@@ -32,6 +37,7 @@ export function Tasks({ tasks, onDeleteTask }: TasksProps) {
             key={task.id}
             task={task}
             onDeleteTask={onDeleteTask}
+            onCompleteTask={onCompleteTask}
           />
         ))}
       </div>

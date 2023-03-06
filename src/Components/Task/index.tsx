@@ -6,12 +6,17 @@ import styles from './task.module.css'
 interface TaskProps {
   task: ITask;
   onDeleteTask: (taskId: string) => void;
+  onCompleteTask: (taskId: string) => void;
 }
 
-export function Task({ task, onDeleteTask }: TaskProps) {
+export function Task({ 
+  task, 
+  onDeleteTask, 
+  onCompleteTask 
+}: TaskProps) {
   return (
     <div className={styles.task}>
-      <button className={styles.checkContainer}>
+      <button onClick={() => onCompleteTask(task.id)} className={styles.checkContainer}>
         {task.isCompleted ? <CheckCircle size={21} /> : <div />}
       </button>
 
