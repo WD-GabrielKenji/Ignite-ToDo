@@ -5,9 +5,10 @@ import styles from './task.module.css'
 
 interface TaskProps {
   task: ITask;
+  onDeleteTask: (taskId: string) => void;
 }
 
-export function Task({ task }: TaskProps) {
+export function Task({ task, onDeleteTask }: TaskProps) {
   return (
     <div className={styles.task}>
       <button className={styles.checkContainer}>
@@ -18,7 +19,7 @@ export function Task({ task }: TaskProps) {
         {task.title}
       </p>
 
-      <button className={styles.deleteButton}>
+      <button onClick={() => onDeleteTask(task.id)} className={styles.deleteButton}>
         <Trash size={20} />
       </button>
     </div>  
